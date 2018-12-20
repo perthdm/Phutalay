@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .size-A4 {
+            width: 1240px;
+            height: 1754px;
+            background-color: #FFF;
+            padding: 30px;
+            padding-top: 100px;
+
+        }
+    </style>
+
+</head>
+
+
+<body style="background-color:#e5e5e6; font-size:20px; padding-top:30px; padding-bottom:30px; font-family: 'Kanit', sans-serif;">
+    <center>
+        <div class="size-A4">
+
+
+
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <div class="float-right"><img src="/img/logoblue.png" alt="logo" width="250" height="61"></div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px; text-align:left;">
+                <div class="col-md-6">
+                    <b>ที่อยู่ :</b>
+                    <span>
+                        <p>3 Srinakarin Road Soi Suphaphong 3
+                            Yaek 5-2 Nong bon, Pravet Bangkok 10250</p>
+                    </span>
+                </div>
+                <div class="col-md-6" style="font-size:15px; text-align:right;"><span><b>Telaphone </b></span><span>097-194-9445</span></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" style="text-align:left; margin-bottom:10px;"><span><b>หมายเลขการจอง </b></span><span>
+                        <%= reservation._id %></span></div>
+                <div class="col-md-6"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6" style="text-align:left;"><span><b>วันที่เรียกเก็บเงิน </b></span><span>December 1
+                        ,2018</span></div>
+                <div class="col-md-6"></div>
+            </div>
+
+            <h2 style="text-align:center; margin-bottom:20px;">ใบเสร็จ</h2>
+
+            <table style="width:100%; margin-bottom:50px;">
+                <tr>
+                    <th style="text-align:center">ชื่อและที่อยู่ของลูกค้า </th>
+                </tr>
+                <tr>
+                    <td style="padding:20px;">
+                        <div>
+                            <div style="margin-bottom:5px;"><span><b>ชื่อ : </b></span><span>
+                                    <%= customer.firstname %>
+                                    <%= customer.lastname %></span></div>
+                            <div style="margin-bottom:5px;"><span><b>อีเมล : </b></span><span>
+                                    <%= customer.email %></span></div>
+                            <div style="margin-bottom:5px;"><span><b>ที่อยู่ : </b></span><span>
+                                    <%= customer.address %>
+                                    <%= customer.tumbon %>
+                                    <%= customer.district %>
+                                    <%= customer.province %>
+                                    <%= customer.post %></span></div>
+                            <div style="margin-bottom:5px;"><span><b>เลขผู้เสียภาษี : </b></span><span>
+                                    <%= customer.idCard %> </span></div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+
+            <table style="width:100%; margin-bottom:50px;">
+                <tr>
+                    <th style="text-align:center!important;">โรงแรม</th>
+                </tr>
+                <tr>
+                    <td style="padding:20px;">
+                        <div>
+                            <div style="margin-bottom:5px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <b>ชื่อโรงแรม</b>
+                                    </div>
+
+                                    <div class="col">
+                                        Phutalay
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div style="margin-bottom:5px;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <b>วันที่เข้าพัก</b>
+                                    </div>
+
+                                    <div class="col">
+                                        <%= reservation.dateBookingStart.toISOString().slice(0,10) %> -
+                                        <%= reservation.dateBookingEnd.toISOString().slice(0,10) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <table style="width:100%;">
+                <tr>
+                    <th colspan="4" style="text-align:center!important;">ห้องพัก</th>
+                </tr>
+
+                <tr>
+                    <th style="width:65%;">ประเภทห้อง</th>
+                    <th>ราคา</th>
+                    <th>จำนวน</th>
+                    <th>รวม</th>
+                </tr>
+
+                <% if ( reservation.roomTypeAmount.Single_Room > 0) { %>
+                <tr>
+                    <td> Single Room </td>
+                    <td> 500 </td>
+                    <td> <%= reservation.roomTypeAmount.Single_Room %></td>
+                    <td>  <%= 500 * reservation.roomTypeAmount.Single_Room %> </td>
+                </tr>
+                <% } %>
+
+                <% if ( reservation.roomTypeAmount.Twin_Room > 0) { %>
+                <tr>
+                    <td> Twin Room  </td>
+                    <td> 600 </td>
+                    <td> <%=  reservation.roomTypeAmount.Twin_Room %> </td>
+                    <td> <%=  600*reservation.roomTypeAmount.Twin_Room %></td>
+                </tr>
+                <% } %>
+               
+                <% if ( reservation.roomTypeAmount.Double_Room > 0) { %>
+                <tr>
+                    <td>Double Room </td>
+                    <td>  800 </td>
+                    <td> <%= reservation.roomTypeAmount.Double_Room %> </td>
+                    <td>  <%= 800*reservation.roomTypeAmount.Double_Room %>  </td>
+                </tr>
+                <% } %>
+               
+
+
+
+                <tr>
+                    <td colspan="3" style="text-align:center!important;">ยอดรวมทั้งหมด</td>
+                    <td> <%= reservation.total %> บาท</td>
+                </tr>
+            </table>
+        </div>
+    </center>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+
+</html>

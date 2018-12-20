@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Kanit|Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="/node_modules/easy-autocomplete/dist/easy-autocomplete.min.css">
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/Reservation.css">
+    <style>
+        .easy-autocomplete{
+            width: 100% !important;
+        }
+        </style>
+    <title>Reservation - Phutalay</title>
+</head>
+
+<body>
+    <div class="top-menubar">
+        <img src="img/logo.png" alt="logo" class="logo">
+        <div class="top-menu-right">
+            <div class="username">Supisara Prasittinawa</div>
+            <div class="line"></div>
+            <a href="/"><button type="submit" class="btn btn-logout">LOG OUT</button></a>
+        </div>
+    </div>
+    <div class="container" style="padding-top:100px;padding-bottom:100px">
+        <form action="/booking" method="post">
+            <div class="text-center">
+                <h1>
+                    <a href="/reservation">
+                        <div class="animated fadeInLeft">RESERVATION ></div>
+                    </a>
+                    <div class="animated fadeInLeft">BOOKING PHUTALAY</div>
+                </h1>
+                <p class="animated fadeInUp delay-1">ระบบสำรองห้องพัก</p>
+            </div>
+
+
+            <ul class="timeline">
+                <li>
+
+                    <h5>ค้นหาห้องพัก</h5>
+                    <br>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">เช็คอิน</label>
+                                <input type="date" class="form-control" name="reV_dateS" id="RevDateS" value="<%= today.toISOString().slice(0,10) %>">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">เช็คเอาท์</label>
+                                <input type="date" class="form-control" name="reV_dateE" id="RevDateE" value="<%= tomorrow.toISOString().slice(0,10) %>">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" onclick="searchRoom()" class="btn btn-blue "><span><i class="far fa-calendar-alt"></i></span>
+                                ค้นหาห้อง</button>
+                        </div>
+                    </form>
+
+                </li>
+                <li>
+
+                    <h5>รายการห้องว่าง</h5>
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">RoomType</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Busy</th>
+                                <th scope="col">All</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="res_roomType">
+
+                        </tbody>
+                    </table>
+                </li>
+                <li>
+
+                    <h5>รายละเอียดลูกค้า</h5> <br>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="cusTypeOld" name="cusType" value="old" class="custom-control-input cus-type"
+                                checked>
+                            <label class="custom-control-label" for="cusTypeOld">ลูกค้าเก่า</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="cusTypeNew" name="cusType" value="new" class="custom-control-input cus-type">
+                            <label class="custom-control-label" for="cusTypeNew">เพิ่มลูกค้าใหม่</label>
+                        </div>
+
+                    </div>
+                    <div id="cus-old-collapse" class="collapse show">
+                        <div class=" form-group input-group">
+                            <input type="text" class="form-control" id="search-auto-com" placeholder="ค้นหาชื่อลูกค้า"
+                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input type="hidden" id="cus_id" name="cusID">
+                        </div>
+                    </div>
+
+
+                    <div id="cus-new-collapse" class="collapse">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label>ชื่อ<span style="color:red"> *</span></label>
+                                <input type="text" class="form-control" name="cus_firstname" value="">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label>นามสกุล<span style="color:red"> *</span></label>
+                                <input type="text" class="form-control" name="cus_lastname" value="">
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>เลขประจำตัวผู้เสียภาษี/เลขที่บัตรประชาชน<span style="color:red"> *</label>
+                            <input type="text" class="form-control" value="" name="cus_idcard">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail4">Email<span style="color:red"> *</span></label>
+                            <input type="email" class="form-control" placeholder="" value="" name="cus_email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail4">เบอร์โทรศัพท์<span style="color:red"> *</span></label>
+                            <input type="text" class="form-control" placeholder="" value="" name="cus_phone">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-7">
+                                <label for="inputCity">บ้านเลขที่<span style="color:red"> *</label>
+                                <input type="text" class="form-control" value="" name="cus_address">
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <label for="inputCity">แขวง/ตำบล<span style="color:red"> *</label>
+                                <input type="text" class="form-control" value="" name="cus_tumbon">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label for="inputCity">เขต/อำเภอ<span style="color:red"> *</label>
+                                <input type="text" class="form-control" value="" name="cus_district">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="inputCity">จังหวัด<span style="color:red"> *</label>
+                                <input type="text" class="form-control" value="" name="cus_province">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="inputCity">รหัสไปรษณีย์<span style="color:red"> *</label>
+                                <input type="text" class="form-control" value="" name="cus_post">
+                            </div>
+                            <!-- <div class="text-right" style="width: 100%">
+                        <button type="submit" class="btn btn-blue "><i class="fas fa-user-tie"></i></span>
+                            บันทึกข้อมูลลูกค้า</button>
+                    </div> -->
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+
+                    <h5>ยืนยันการจองห้องพัก</h5> <br>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">จองห้องพัก</button>
+                        <a href="/reservation"><button class="btn btn-primary">ยกเลิก</button></a>
+                    </div>
+                </li>
+            </ul>
+
+        </form>
+    </div>
+</body>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/node_modules/easy-autocomplete/dist/jquery.easy-autocomplete.min.js"></script>
+<script src="/node_modules/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+    var options = {
+        url: "/booking/get/customer/all",
+        getValue: "firstname",
+	highlightPhrase: true,
+
+        list: {
+            onChooseEvent: function () {
+                $("#cus_id").val($("#search-auto-com").getSelectedItemData()._id);
+                // console.log($("#search-auto-com").getSelectedItemData()._id);
+                // window.location.href = "http://"+hostname+"/bookdetail/"+$("#search-auto-com").getSelectedItemData().id;
+            },
+            maxNumberOfElements: 5,
+            match: {
+            enabled: true
+        }
+        },
+        template: {
+            type: "custom",
+            method: function (value, item) {
+                return "<b>" + item.idCard + "</b> - " + item.firstname + " " + item.lastname;
+            }
+        }
+    };
+
+    $("#search-auto-com").easyAutocomplete(options);
+
+    $('.cus-type').change(function () {
+        if (this.value == 'old') {
+            $('#cus-old-collapse').collapse('show');
+            $('#cus-new-collapse').collapse('hide');
+        }
+        else if (this.value == 'new') {
+            $('#cus-new-collapse').collapse('show');
+            $('#cus-old-collapse').collapse('hide');
+        }
+    });
+
+    var searchRoom = () => {
+        var RevDateS = $('#RevDateS').val();
+        var RevDateE = $('#RevDateE').val();
+        if (RevDateS == "" || RevDateE == "") {
+            return swal("Error", "Date Start or End is null!!", "error");
+        }
+        console.log(RevDateS);
+        console.log(RevDateE);
+
+        var RevDateSM = new Date(RevDateS);
+        var RevDateEM = new Date(RevDateE);
+
+        console.log(RevDateSM.getTime());
+        console.log(RevDateEM.getTime());
+
+        $.post("/booking/get/room/availability", {
+            start: RevDateSM.getTime(),
+            end: RevDateEM.getTime()
+        }, function (result) {
+            $("#res_roomType").html("");
+            result.forEach((item, index) => {
+                $("#res_roomType").append(
+                    '<tr class="' + item._id + '">' +
+                    '<td>' + item._id + '</th>' +
+                    '<td>' + item.price.toLocaleString() + '</td>' +
+                    ' <td>' + item.use + '</td>' +
+                    ' <td>' + item.count + '</td>' +
+                    '<td><input type="number" name="reV_roomType_amount_' + item._id + '" min="0" max="' + (item.count - item.use) + '" ' + ((item.count - item.use < 1) ? "readonly" : "") + ' class="form-control" id="amount_' + item._id + '" value="0"/></td>' +
+                    '<input type="hidden" name="reV_roomType_name" value="' + item._id + '"/>' +
+                    '<input type="hidden" name="reV_roomType_price_' + item._id + '" value="' + item.price + '"/>' +
+                    '</tr>'
+                );
+            });
+
+            console.log(result);
+        });
+    }
+</script>
+
+</html>

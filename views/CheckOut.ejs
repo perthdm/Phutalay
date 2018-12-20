@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Kanit|Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Style.css">
+    <link rel="stylesheet" href="/css/Reservation.css">
+    <title>Reservation - Phutalay</title>
+</head>
+
+<body>
+    <div class="top-menubar">
+            <a href="/reservation"><img src="/img/logo.png" alt="logo" class="logo"></a>
+        <div class="top-menu-right">
+            <div class="username">Supisara Prasittinawa</div>
+            <div class="line"></div>
+            <a href="/login"><button type="submit" class="btn btn-logout">LOG OUT</button></a>
+        </div>
+    </div>
+    <div class="container" style="padding-top:100px;padding-bottom:100px">
+        <div class="text-center">
+            <h1>
+                <a href="/reservation"><div class="animated fadeInLeft">RESERVATION ></div></a>
+                <div class="animated fadeInLeft">CHECKOUT PHUTALAY</div>
+
+            </h1>
+            <p class="animated fadeInUp delay-1">ระบบสำรองห้องพัก</p>
+        </div>
+
+
+        <ul class="timeline">
+            <li>
+                
+                <h5>รายละเอียดลูกค้า</h5>
+<br>
+              
+                    <div class="form-row">
+                        <div class="form-group ">
+                                <label for="inputEmail4">ชื่อ - นามสกุล : <%= customer.firstname %> <%= customer.lastname %></label><br>
+                                <label for="inputEmail4">เลขประจำตัวผู้เสียภาษี/เลขที่บัตรประชาชน : <%= customer.idCard %></label><br>
+                                <label for="inputEmail4">Email : <%= customer.email %></label><br>
+                                <label for="inputEmail4">เบอร์โทรศัพท์ : <%= customer.phone %></label><br>
+                                <label for="inputEmail4">ที่อยู่ : <%= customer.address %> ต.<%= customer.tumbon %> อ.<%= customer.district %> จังหวัด<%= customer.province %> <%= customer.post %></label><br>
+                                
+                                <label for="inputEmail4">ราคารวม : <%= reservation.total %> บาท</label><br>
+                            
+                            
+                        </div>
+                       
+                    </div>
+                  
+           
+
+            </li>
+            <li>
+                   
+                <h5>รายการห้องพัก</h5>
+ <br>
+ 
+ <div class="form-group">
+        <% rooms.forEach(function(room){ %>
+            <label><%= room.roomType %> - <%= room.name %> <%= room.detail %></label><br>
+        <% }); %>
+       
+       
+    </div>
+                
+            </li>
+           
+            <li>
+                
+                <h5>ยืนยันการเช็คเอาท์</h5> <br>
+                <div class="text-center">
+                    <form action="/update/checkOut" method="post">
+                        <input type="hidden" name="id" value="<%= reservation._id %>">
+                        <button type="submit" class="btn btn-primary">เช็คเอาท์</button>
+                        <a href="/reservation"><button class="btn btn-primary">ยกเลิก</button></a>
+                    </form>
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+</body>
+
+<script src="/node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</html>

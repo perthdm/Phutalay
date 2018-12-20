@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/Style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Register - Phutalay</title>
+</head>
+
+<body>
+    <div class="font-promprt main-flex">
+        <center>
+
+            <form action="/register" method="post">
+
+                <!-- -------------- Form input -------------- -->
+                <img src="img/logo.png" alt="logo" class="logo-login">
+                <div class="input-group mb-3 login-rsp size-box-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon-input">
+                            <i class="fas fa-user-tie" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control input-login border-input" placeholder="ชื่อ" name="firstname"
+                        aria-label="name" required>
+                </div>
+                <div class="input-group mb-3 login-rsp size-box-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon-input">
+                            <i class="fas fa-user-tie" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control input-login border-input" placeholder="นามสกุล" name="lastname"
+                        aria-label="lastname" required>
+                </div>
+                <div class="input-group mb-3 login-rsp size-box-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon-input">
+                            <i class="fa fa-user" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control input-login border-input" placeholder="Username" name="username"
+                        aria-label="Username" required>
+                </div>
+
+                <div class="input-group mb-3 login-rsp size-box-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon-input">
+                            <i class="fa fa-lock" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" class="form-control input-login border-input" placeholder="Password" name="password"
+                        aria-label="Password" required>
+                </div>
+
+                <div class="input-group mb-3 login-rsp size-box-input">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text icon-input">
+                            <i class="fa fa-lock" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" class="border-input form-control input-login" placeholder="Confirm Password"
+                        name="confirmPassword" aria-label="Password" required>
+                </div>
+                <!-- -------------- Form input -------------- -->
+
+               <!-- --------------Button submit -------------- -->
+                <div class="login-rsp" style="width:300px;">
+                    <button type="submit" class="btn style-bt-login">Register</button>
+                </div>
+                <!-- --------------Button submit -------------- -->
+
+            </form>
+        </center>
+    </div>
+</body>
+
+<script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+
+</html>

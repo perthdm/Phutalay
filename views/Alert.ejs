@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Alert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <script src="/node_modules/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        swal("<%= title %>", "<%= content %>").then((val)=>{
+            window.location.href = "<%= url %>";
+        });
+    </script>
+</body>
+</html>

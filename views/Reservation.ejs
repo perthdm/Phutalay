@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Kanit|Sarabun" rel="stylesheet">
+  <link rel="stylesheet" href="css/Style.css">
+  <link rel="stylesheet" href="css/Reservation.css">
+  <title>Reservation - Phutalay</title>
+</head>
+
+<body>
+    <div class="top-menubar">
+        <a href="/reservation"><img src="img/logo.png" alt="logo" class="logo"></a>
+    <div class="top-menu-right">
+        <div class="username"> <%= firstname %>  <%= lastname %></div>
+        <div class="line"></div>
+        <a href="/logout"><button type="submit" class="btn btn-logout">LOG OUT</button></a>
+    </div>
+</div>
+
+
+
+  <div class="container-fluid ">
+    <div class="text-center">
+      <h1>
+        <div class="animated fadeInLeft">RESERVATION</div>
+        <div class="animated fadeInRight">PHUTALAY</div>
+      </h1>
+      <p class="animated fadeInUp delay-1">ระบบสำรองห้องพัก</p>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <a href="/register"><button type="submit" class="btn btn-blue margin-right"><span><i class="fas fa-user-shield"></i></span>
+          เพิ่มสมาชิก</button></a>
+          <a href="/booking"><button type="submit" class="btn btn-blue "><span><i class="far fa-calendar-alt"></i></span>
+            จองห้องพัก</button></a>
+
+    </div>
+
+
+    <h5>รายการสำรองห้องพัก</h5>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr class="text-center">
+            <th scope="col ">เลขที่</th>
+            <th scope="col ">ชื่อลูกค้า</th>
+            <th scope="col ">วันที่จอง</th>
+            <th scope="col ">วันที่เช็คอิน</th>
+            <th scope="col ">วันที่เช็คเอาท์</th>
+            <th scope="col ">จำนวนห้อง</th>
+            <th scope="col ">ราคารวม</th>
+            <th scope="col ">สถานะ</th>
+            <th scope="col ">ตัวเลือก</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <% for (var i=0 ; i<datas.length ; i++) {%>
+          <tr>
+            <th class="text-center" scope="row"> <%= datas[i]._id %></th>
+            <td><%= datas[i].customer_data[0].firstname %> <%= datas[i].customer_data[0].lastname %>  </td>
+            <td class="text-center"> <%= datas[i].bookingAt.toISOString().slice(0,10)%></td>
+            
+            <td class="text-center"> <%= datas[i].dateBookingStart.toISOString().slice(0,10)%></td>
+            <td class="text-center"> <%= datas[i].dateBookingEnd.toISOString().slice(0,10)%></td>
+            <td class="text-right"><%= datas[i].roomType.length %></td>
+            <td class="text-right"><%= datas[i].total %></td>
+            <% if ( datas[i].status == 0) { %>
+            <td class="text-center"><span class="badge badge-warning">จอง</span></td>
+            <% } %>
+
+            <% if ( datas[i].status == 1) { %>
+              <td class="text-center"><span class="badge badge-success">เช็คอิน</span></td>
+            <% } %>  
+
+            <% if ( datas[i].status == 2) { %>
+              <td class="text-center"><span class="badge badge-dark">เช็คเอาท์</span></td>
+            <% } %>  
+            <td class="text-center">
+              <% if ( datas[i].status == 0) { %>
+              <a href="/checkIn/<%= datas[i]._id %>"><button type="button" class="btn btn-primary btn-circle"><i class="far fa-calendar-plus"></i></button></a>
+              <% } %>
+              
+              <% if ( datas[i].status == 1) { %>
+                <a href="/checkOut/<%= datas[i]._id %>"><button type="button" class="btn btn-warning btn-circle"><i class="far fa-calendar-minus"></i></button></a>
+              <% } %>
+            
+              <a href="/bill/<%= datas[i]._id %>"><button type="button" class="btn btn-info btn-circle"><i class="far fa-file-pdf"></i></button></a>
+          
+            </td>
+          </tr>
+          <% } %>
+
+         
+         
+
+        </tbody>
+      </table>
+    </div>
+    <br>
+
+   
+
+  </div>
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="padding:30px">
+            <h5>เลขที่สำรองห้องพัก : 23154545
+            </h5>
+                <div class="form-group " style="padding-left:30px">
+                    <label for="inputEmail4">ชื่อ - นามสกุล : นางสาวศุภิสรา  ประสิทธินาวา</label><br>
+                    <label for="inputEmail4">เลขประจำตัวผู้เสียภาษี/เลขที่บัตรประชาชน : 1212312121</label><br>
+                    <label for="inputEmail4">Email : email@hotmail.com</label><br>
+                    <label for="inputEmail4">เบอร์โทรศัพท์ : 020000000</label><br>
+                    <label for="inputEmail4">ที่อยู่ : 949/3 ม.12 ถ.เนินตาแมว ต.วังกระแจะ อ.เมืองตราด จังหวัดตราด</label><br>
+                    <label for="inputEmail4">สถานะ : <span class="badge badge-warning">จอง</span></label><br>
+                    <label for="inputEmail4">ราคารวม : 2000 บาท</label><br>
+                    
+
+                    
+                </div>
+                <div class="form-group" style="padding-left:30px">
+                    <label>ประเภทห้อง : Singlr Room</label><br>
+                    <label>ห้อง : A001</label><br>
+                    <label>ห้อง : A001</label>
+                   
+                   
+                </div>
+            
+                <div class="form-group" style="padding-left:30px">
+                        <label>ประเภทห้อง : Singlr Room</label><br>
+                        <label>ห้อง : B001</label><br>
+                        <label>ห้อง : B001</label>
+                       
+                    </div>
+               
+        
+        </div>
+      </div>
+    </div>
+
+</body>
+
+<script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</html>
